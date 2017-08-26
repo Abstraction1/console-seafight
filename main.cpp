@@ -29,6 +29,9 @@ int main()
     const int x = 10;
     const int y = 10;
 
+    const int ex = 10;
+    const int ey = 10;
+
     bool (*ptr_checkUpAndDown)(int (*m)[10], int& cx, int& cy, int& deck_count, bool& hv) = checkUpAndDown;
     bool (*ptr_checkLeft)(int (*m)[10], int& cx, int& cy, int& deck_count, bool& hv) = checkLeft;
     bool (*ptr_checkRight)(int (*m)[10], int& cx, int& cy, int& deck_count, bool& hv) = checkRight;
@@ -42,13 +45,15 @@ int main()
 
     drow(field, x);
 
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 void drow(int (*m)[10], int x)
 {
+    std::cout << " 0123456789\n";
     for (int i = 0; i < x; ++i)
     {
+        std::cout << i;
         for (int j = 0; j < 10; ++j)
         {
             if (m[j][i] == 0)
@@ -88,8 +93,8 @@ bool (*right)(int (*m)[10], int& cx, int& cy, int& deck_count, bool& hv))
         hOrV = rand()%2;
         if(hOrV == true)
         {
-            cx = rand() % 10;
-            cy = rand() % 10;
+            cx = (rand()%10);
+            cy = (rand()%10);
             if (
                     up(m, cx, cy, deck_count, hOrV) ||
                     left(m, cx, cy, deck_count, hOrV) ||
@@ -140,7 +145,11 @@ bool checkUpAndDown(int (*m)[10], int& cx, int& cy, int& deck_count, bool& hv)
                     m[cx][cy - 1] ||
                     m[cx]    [cy] ||
                     m[cx][cy + i] ||
-                    cy > 10 - deck_count;
+                    cy > 9 - deck_count;
+            if (result == true)
+            {
+                break;
+            }
         }
     }
     else if (hv == false)
@@ -151,7 +160,11 @@ bool checkUpAndDown(int (*m)[10], int& cx, int& cy, int& deck_count, bool& hv)
                     m[cx - 1][cy] ||
                     m[cx]    [cy] ||
                     m[cx + i][cy] ||
-                    cx > 10 - deck_count;
+                    cx > 9 - deck_count;
+            if (result == true)
+            {
+                break;
+            }
         }
     } return result;
 }
@@ -167,6 +180,10 @@ bool checkLeft(int (*m)[10], int &cx, int &cy, int& deck_count, bool& hv)
                     m[cx - 1][cy - 1] ||
                     m[cx - 1]    [cy] ||
                     m[cx - 1][cy + i];
+            if (result == true)
+            {
+                break;
+            }
         }
     }
     else if (hv == false)
@@ -177,6 +194,10 @@ bool checkLeft(int (*m)[10], int &cx, int &cy, int& deck_count, bool& hv)
                     m[cx - 1][cy - 1] ||
                     m[cx]    [cy - 1] ||
                     m[cx + i][cy - 1];
+            if (result == true)
+            {
+                break;
+            }
         }
     } return result;
 }
@@ -192,6 +213,10 @@ bool checkRight(int (*m)[10], int &cx, int &cy, int& deck_count, bool& hv)
                     m[cx + 1][cy - 1] ||
                     m[cx + 1]    [cy] ||
                     m[cx + 1][cy + i];
+            if (result == true)
+            {
+                break;
+            }
         }
     }
     else if (hv == false)
@@ -202,6 +227,10 @@ bool checkRight(int (*m)[10], int &cx, int &cy, int& deck_count, bool& hv)
                     m[cx - 1][cy + 1] ||
                     m[cx]    [cy + 1] ||
                     m[cx + i][cy + 1];
+            if (result == true)
+            {
+                break;
+            }
         }
     } return result;
 }
